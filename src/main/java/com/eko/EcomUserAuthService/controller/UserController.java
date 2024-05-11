@@ -4,6 +4,7 @@ import com.eko.EcomUserAuthService.DTO.LoginRequestDTO;
 import com.eko.EcomUserAuthService.DTO.SignUpRequestDTO;
 import com.eko.EcomUserAuthService.DTO.UserResponseDTO;
 import com.eko.EcomUserAuthService.service.UserService;
+import jakarta.validation.Valid;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -26,8 +27,14 @@ public class UserController {
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<UserResponseDTO> signup(@RequestBody SignUpRequestDTO signUpRequestDTO){
-        return null;
+    public ResponseEntity<UserResponseDTO> signup(@Valid @RequestBody SignUpRequestDTO signUpRequestDTO){
+        UserResponseDTO responseDTO = userService.signup(signUpRequestDTO);
+        return ResponseEntity.ok(
+                responseDTO
+        );
+    }
+    private void validateSignUpDTO(SignUpRequestDTO requestDTO){
+
     }
 
     @GetMapping("/validator")
